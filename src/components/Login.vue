@@ -6,7 +6,7 @@
         <img src="../assets/logo.png">
       </div>
       <!--   登陆表单区   -->
-      <el-form :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
+      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
         <!--    用户名,使用的验证规则是username    -->
         <el-form-item prop="username">
           <!--     使用图标要先在main.js中导入./assets/fonts/iconfont.css     -->
@@ -18,8 +18,8 @@
         </el-form-item>
         <!--    按钮区域    -->
         <el-form-item class="btns">
-          <el-button type="primary">登陆</el-button>
-          <el-button type="info">重置</el-button>
+          <el-button type="primary" @click="login">登陆</el-button>
+          <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -47,6 +47,20 @@ export default {
           { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
         ]
       }
+    }
+  },
+  methods: {
+    // 创建方法如果报错：在.eslintrc.js中添加规则"space-before-function-paren": [0, "always"]
+    // 重置表单填充的数据，表单如果有默认值，则重置为默认值
+    resetLoginForm() {
+      this.$refs.loginFormRef.resetFields()
+    },
+    login() {
+      // validate接收回调函数，回调函数的参数可以是一个valid，valid为返回的结果
+      // 如果只传入一个参数，只可以不加括号，如果传入两个参数，需要加括号(valid, param)
+      this.$refs.loginFormRef.validate(valid => {
+        console.log(valid)
+      })
     }
   }
 }
