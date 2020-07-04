@@ -33,8 +33,8 @@ export default {
     return {
       loginForm: {
         // 只能用单引号
-        username: '11',
-        password: '22'
+        username: 'admin',
+        password: '123456'
       },
       loginFormRules: {
         // 验证用户名是否合法
@@ -58,8 +58,22 @@ export default {
     login() {
       // validate接收回调函数，回调函数的参数可以是一个valid，valid为返回的结果
       // 如果只传入一个参数，只可以不加括号，如果传入两个参数，需要加括号(valid, param)
-      this.$refs.loginFormRef.validate(valid => {
-        console.log(valid)
+      // 这里将箭头函数修饰成异步方法
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return
+        // await 只能用在async修饰的方法中
+        // 如果某个方法的返回值一个Promise就可以用async,await来简化这次promise操作
+        // 解构复制出post请求返回结果的data属性，并重命名为res
+        const { data: res } = await this.$http.post('login', this.loginForm)
+        // const result = await this.$http.post('login', this.loginForm)
+        // 使用element的弹框组件需要在elemnt.js中导入组件
+        if (res.meta.status !== 200) return this.$message.error('登陆失败！')
+        this.$message.success('登陆成功')
+        // 将登陆成功之后的token保存到客户端的sessionStorage中，而不是localStorage中
+        // sessionStorage是会话期间的存储机制，每次会话生效，loclaStorage是持久化的存储
+        window.sessionStorage.setItem('token', res.data.token)
+        // $router编程式导航对象，通过它跳转到后台主页/home
+        this.$router.push('/home')
       })
     }
   }
