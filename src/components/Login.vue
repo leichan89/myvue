@@ -50,7 +50,7 @@ export default {
     }
   },
   methods: {
-    // 创建方法如果报错：在.eslintrc.js中添加规则"space-before-function-paren": [0, "always"]
+    // 在methods中创建方法如果报错：在.eslintrc.js中添加规则"space-before-function-paren": [0, "always"]
     // 重置表单填充的数据，表单如果有默认值，则重置为默认值
     resetLoginForm() {
       this.$refs.loginFormRef.resetFields()
