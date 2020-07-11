@@ -138,7 +138,7 @@ export default {
 }
 
 .btns {
-  /*弹性盒模型，它的所有子元素自动成为容器成员*/
+  /*弹性盒模型，它的所有子元素自动成为容器成员，这里让登陆的两个输入框成为容器的成员*/
   /*https://www.cnblogs.com/hellocd/p/10443237.html*/
   display: flex;
   /*右对其，flex-start为左对其，默认左对其*/
