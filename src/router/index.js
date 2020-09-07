@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
+import Welcome from '../components/Welcome.vue'
+import Users from '../components/user/Users.vue'
 
 Vue.use(VueRouter)
 
@@ -10,7 +12,23 @@ const routes = [
   // path表示监听的地址
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
-  { path: '/home', component: Home }
+  // children:子路由,component：组件
+  // redirect重定向，访问home时，就访问子路由welcome
+  {
+    path: '/home',
+    component: Home,
+    redirect: 'welcome',
+    children: [
+      {
+        path: '/welcome',
+        component: Welcome
+      },
+      {
+        path: '/users',
+        component: Users
+      }
+    ]
+  }
 ]
 
 const router = new VueRouter({

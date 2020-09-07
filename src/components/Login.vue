@@ -95,7 +95,7 @@ export default {
   position: absolute;
   /*距离左侧50%*/
   left: 50%;
-  top: 50%;
+  top: 35%;
   transform: translate(-50%, -50px);
   /*头像盒子的宽高*/
   .avatar_box {
